@@ -1,0 +1,35 @@
+<html>
+	<head>
+	<script src="https://unpkg.com/rxjs/bundles/rxjs.umd.min.js">
+	</script>
+	</head>
+	<body>
+	</body>
+	<script>
+		// ES6 method
+		String.prototype.filterWords = function (elist) {
+			const words = this.split(" ");
+			return words.map(w=>elist.includes(w)?"***":w).join(" ");
+		}
+		console.log("this house is nice".filterWords(["house","nice"]));
+		// Promises
+		String.prototype.filterWords = function(elist){
+			return new Promise((resolver, reject)=>{
+					const words = this.split(" ");
+					const result = words.map(w=>elist.includes(w)?"***":w).join(" ");
+					resolver(result);
+			});
+		}
+		const prom = "this house is nice".filterWords(["house","nice"]);
+		prom.then(console.log);
+		// Async, Await
+		async function filterWords(){
+			const result = await "this house is nice".filterWords(["house","nice"]);
+			console.log(result);
+		}
+		filterWords();
+		// Observable
+		const {from} = rxjs;
+		from("this house is nice".filterWords(["house","nice"])).subscribe(console.log);
+	</script>
+</html>
