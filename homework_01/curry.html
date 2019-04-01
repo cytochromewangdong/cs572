@@ -1,0 +1,21 @@
+<html>
+	<head>
+	<script>
+    const item  = {
+        "name":"Avocado",
+        "type":"Fruit",
+        "category":"Food",
+        "price":200
+    }
+    const discountPrice = function(it, discount){
+        nItem  = Object.create(it);
+        nItem.price = nItem.price * (100-discount) / 100;
+        return nItem;
+    }
+    const applyCoupon = function(it) {
+        return discountPrice.bind(null, it);
+    }
+    console.log(applyCoupon(item)(10).price===180);
+	</script>
+	</head>
+</html>

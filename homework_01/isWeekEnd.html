@@ -1,0 +1,13 @@
+<html>
+	<head>
+	<script>
+        function isWeekend(){
+            const todayDate = new Date();
+            const day = todayDate.getDay();
+            const dayOptions = ["weekend","weekday","weekday","weekday","weekday","weekday","weekend"];
+            return dayOptions[day];
+        }
+        console.log(isWeekend());
+	</script>
+	</head>
+</html>
