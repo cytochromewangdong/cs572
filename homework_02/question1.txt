@@ -1,6 +1,6 @@
 Answer 1:
 setTimeout schedules a script to be run after a minimum threshold in ms has elapsed, it takes two parameters, the first parameter is the callback function, the second parameter is the time for the delay for the callback to be executed. The callback is put in the Timer Queue.
-setImmediate is designed to execute a script once the current poll phase completes, it takes only one parameter: the callback function which is put in the Check queque.
+setImmediate is designed to execute a script once the current poll queue(incoming connection,data) phase completes, it takes only one parameter: the callback function which is put in the Check queque.
 When the delay is zero, the behavior of setImmediate is similar to setTimeout(,0), we should use setImmediate because it is more brief and readable. However in the browser, there is not setImmediate function, we have to use setTimeout(,0). 
 When the delya is great than zero, it means we need some delay for our cases, we should use setTimeout.
 
