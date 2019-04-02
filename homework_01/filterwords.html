@@ -6,16 +6,17 @@
 	<body>
 	</body>
 	<script>
+		const splittor = /\s+/;
 		// ES6 method
 		String.prototype.filterWords = function (elist) {
-			const words = this.split(" ");
+			const words = this.split(splittor);
 			return words.map(w=>elist.includes(w)?"***":w).join(" ");
 		}
 		console.log("this house is nice".filterWords(["house","nice"]));
 		// Promises
 		String.prototype.filterWords = function(elist){
 			return new Promise((resolver, reject)=>{
-					const words = this.split(" ");
+					const words = this.split(splittor);
 					const result = words.map(w=>elist.includes(w)?"***":w).join(" ");
 					resolver(result);
 			});
