@@ -1,0 +1,4 @@
+The size of the test file is 1G.
+As for the readFileSync, when there are multiple requests, the start transfer time of the first is 10.373865s, the start transfer time of the second one is 18.932862s, we can see the server can only execute readFileSync once a time. The memory usage at peak is about the 1.8G.
+For the readFile, when there are multiple requests, the start transfer time of the first is 12.775661s, the start transfer time of the second one is 13.445793s, the requests are served almost at the same time. The memory usage at peak is about 1.9G.
+As for Streams, when there are multiple requests, the start transfer time of the first is 0.006247s, the start transfer time of the second one is 0.006111s, the requests are served immediately almost at the same time. The memory usage at peak is about 52M. 
