@@ -11,28 +11,27 @@ handler.subscribe((reqres)=>{
     {
         const worker = fork("fileWorker.js");
         worker.on('message', e=>{
-            if(!e.err)
-            {
-                if(e.data)
-                {
+            const allInOneHandler = {
+                error(){
+                    reqres.res.writeHead(500, {"Content-Type":"text/plain"});
+                    reqres.res.end("internal error!"+e.error);
+                    worker.send({action:'end'});
+                },
+                data(){
                     console.log("data coming...")
                     const buff = new Buffer(e.data, 'base64');  
                     reqres.res.write(buff);
-                } else {
-                    if(e.action==="end")
-                    {
-                        console.log("end...")
-                        worker.send({action:'stop'});
-                        reqres.res.end();
-                    } else {
-                        console.log(`event:${e}`);
-                    }
+                },
+                end(){
+                    console.log("end...")
+                    worker.send({action:'end'});
+                    reqres.res.end();
                 }
             }
-            else {
-                reqres.res.writeHead(500, {});
-                reqres.res.end();
-                console.log(e.err)
+            if(e.action in allInOneHandler){
+                allInOneHandler[e.action]();
+            } else {
+                console.log(`Strange data: ${e}`);
             }
 
         });

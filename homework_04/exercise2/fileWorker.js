@@ -5,16 +5,16 @@ process.on("message",e=>{
             try{
                 const fstream  = fs.createReadStream(data);
                 fstream.on('data',(d)=>{
-                    process.send({data: d.toString("base64")});
+                    process.send({action:'data', data: d.toString("base64")});
                 }).on('end', ()=>{
                     process.send({action:'end'});
                 });
             } catch(e)
             {
-                process.send({err:JSON.stringify(e)}); 
+                process.send({action:'error',error:JSON.stringify(e)}); 
             }
         },
-        stop(data){
+        end(data){
             process.exit(0);
         }
     }
@@ -23,3 +23,7 @@ process.on("message",e=>{
         handler[e.action](e.data);
     }
 });
+
+process.on('uncaughtException', function (err) {
+    process.send({action:'error',error:JSON.stringify(err)}); 
+  });
