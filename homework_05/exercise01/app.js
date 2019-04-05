@@ -7,12 +7,10 @@ app.enable('case sensitive routing');
 app.enable('etag');
 app.set('etag', 'weak');
 app.get("/users",(req,res)=>{
-    // res.set({
-    //     'Cache-Controle':'private, max-age=86400'
-    // });
-    // const fullUrl = req.protocol + '://' + req.get('host') + "/users";
+    res.set({
+        'Cache-Controle':'private, max-age=86400'
+    });
     const fullUrl = `${req.protocol}://${req.get('host')}${req.baseUrl}${req.path}`;
-    //req.baseUrl + req.path
     const proxyQuery  = JSON.parse(JSON.stringify(req.query));
     const RESULTS_KEY = "results";
     console.log(proxyQuery);
@@ -27,9 +25,9 @@ app.get("/users",(req,res)=>{
     axios.get(proxyUrlStr)
         .then(function (response) {
             function makeLinke(p, name){
-                const baseObject = {seed:response.data.info.seed};
-                baseObject[RESULTS_KEY]=result;
-                baseObject["page"] = p;
+                const baseObject = {[RESULTS_KEY]:result,
+                     seed:response.data.info.seed,
+                     page: p};
                 const qStr = querystring.stringify(baseObject);
                 return `<${fullUrl}?${qStr}>; rel="${name}"`;
             }
