@@ -3,8 +3,12 @@ process.on("message",e=>{
     const handler = {
         start(data) {
             try{
-                const d = fs.readFileSync(data);
-                process.send({data:d.toString()});
+                const fstream  = fs.createReadStream(data);
+                fstream.on('data',(d)=>{
+                    process.send({data:d.toString()});
+                }).on('end', ()=>{
+                    process.send({action:'end'});
+                });
             } catch(e)
             {
                 process.send({err:JSON.stringify(e)}); 

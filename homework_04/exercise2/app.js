@@ -13,7 +13,20 @@ handler.subscribe((reqres)=>{
         worker.on('message', e=>{
             if(!e.err)
             {
-                reqres.res.end(e.data+"");
+                if(e.data)
+                {
+                    console.log("data coming...")
+                    reqres.res.write(e.data);
+                } else {
+                    if(e.action==="end")
+                    {
+                        console.log("end...")
+                        reqres.res.end();
+                    } else {
+                        console.log(`event:${e}`);
+                    }
+
+                }
             }
             else {
                 reqres.res.writeHead(500, {});
