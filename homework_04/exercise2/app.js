@@ -16,16 +16,17 @@ handler.subscribe((reqres)=>{
                 if(e.data)
                 {
                     console.log("data coming...")
-                    reqres.res.write(e.data);
+                    const buff = new Buffer(e.data, 'base64');  
+                    reqres.res.write(buff);
                 } else {
                     if(e.action==="end")
                     {
                         console.log("end...")
+                        worker.send({action:'stop'});
                         reqres.res.end();
                     } else {
                         console.log(`event:${e}`);
                     }
-
                 }
             }
             else {
@@ -33,7 +34,6 @@ handler.subscribe((reqres)=>{
                 reqres.res.end();
                 console.log(e.err)
             }
-            worker.send({action:'stop'});
 
         });
         worker.send({action:'start',data:reqURLObject.query["url"]});

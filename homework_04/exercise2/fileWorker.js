@@ -5,7 +5,7 @@ process.on("message",e=>{
             try{
                 const fstream  = fs.createReadStream(data);
                 fstream.on('data',(d)=>{
-                    process.send({data:d.toString()});
+                    process.send({data: d.toString("base64")});
                 }).on('end', ()=>{
                     process.send({action:'end'});
                 });
