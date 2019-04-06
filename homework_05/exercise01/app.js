@@ -6,6 +6,7 @@ app.set("strict routing",true);
 app.enable('case sensitive routing');
 app.enable('etag');
 app.set('etag', 'weak');
+app.disable('x-powered-by');
 app.get("/users",(req,res)=>{
     res.set({
         'Cache-Controle':'private, max-age=86400'
@@ -19,11 +20,11 @@ app.get("/users",(req,res)=>{
     }
     const result = proxyQuery[RESULTS_KEY];
     const proxyQueryStr = querystring.stringify(proxyQuery);
-    //https://randomuser.me/api/?page=3&results=10&seed=abc
     const proxyUrlStr  = `https://randomuser.me/api/?${proxyQueryStr}`
     console.log(proxyUrlStr);
-    axios.get(proxyUrlStr)
-        .then(function (response) {
+    async function fetchRemoteSite(){
+        try{
+            const response = await axios.get(proxyUrlStr)
             function makeLinke(p, name){
                 const baseObject = {[RESULTS_KEY]:result,
                      seed:response.data.info.seed,
@@ -33,19 +34,23 @@ app.get("/users",(req,res)=>{
             }
             const linkArr = [];
             const currentPage = response.data.info.page;
+            linkArr.push(makeLinke(1,"first"));
             if(currentPage>1)
             {
-                linkArr.push(makeLinke(1,"first"));
                 linkArr.push(makeLinke(currentPage - 1,"prev"));
             }
             linkArr.push(makeLinke(currentPage + 1,"next"));
             res.set({
                 'Link':linkArr.join(", ")
              });
+
             res.send(response.data);
-        }).catch((e)=>{
+        }catch(e){
             console.error(e);
             res.sendStatus(500);
-        });
+        }
+    }
+    fetchRemoteSite();
+
 });
-app.listen(8899)
+app.listen(6788)
