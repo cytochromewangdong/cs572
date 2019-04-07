@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 });
 router.post('/', function(req, res, next) {
 	const newGradeEntity = clone(req.body);
-	newGradeEntity.id = idCounter++;
+	newGradeEntity.id = ++idCounter;
 	grades[newGradeEntity.id]=newGradeEntity;
 	res.status(201).send(wrapResult(newGradeEntity))
 });

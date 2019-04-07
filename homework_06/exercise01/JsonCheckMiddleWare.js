@@ -8,7 +8,7 @@ const jsonChecker = function( req, res, next ) {
       req.rawBody = data;
       if(data)
       {
-        console.log( 'on end: ', data )
+        // console.log( 'on end: ', data )
         if(data.indexOf('{') >=0){
             try{
                 req.body = JSON.parse(data);
