@@ -42,10 +42,10 @@ const jsonChecker = function( req, res, next ) {
                 req.body = JSON.parse(data);
             } catch(e)
             {
-                return next(createError(400));
+                return next(createError(400), "invalid json format!");
             }
         } else {
-            return next(createError(400));
+            return next(createError(400), "invalid json format!");
         }
       } 
       next();
