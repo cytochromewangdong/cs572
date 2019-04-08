@@ -17,7 +17,7 @@ app.use(morgan('combined', { stream: accessLogStream }))
 app.use(jsonChecker);
 // app.use(express.json());
 
-app.use('/grades', usersRouter);
+app.use('/api/v1/grades', usersRouter);
 app.use(cors());
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
