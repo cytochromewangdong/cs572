@@ -5,17 +5,19 @@ const simpleEncryptor = require('simple-encryptor');
 const {MongoClient} = require("mongodb");
 var app = express();
 let client;
-app.get('/secret/',(req,res,next)=>{
-    // _id:false should be pass to avoid the _id field.
-    client.db("homework01").collection("data").findOne({},
-      {projection:{key:true,message:true, _id:false}},(err,document)=>{
-        console.log(document);
-        const encryptor = simpleEncryptor(document.key);
-        const result = encryptor.encrypt(document.message);
-        res.send(result);
-      });
+var secretRouter = express.Router();
+secretRouter.get('/',(req,res,next)=>{
+  // _id:false should be pass to avoid the _id field.
+  client.db("homework01").collection("data").findOne({},
+    {projection:{key:true,message:true, _id:false}},(err,document)=>{
+      console.log(document);
+      const encryptor = simpleEncryptor(document.key);
+      const result = encryptor.encrypt(document.message);
+      res.send(result);
+    });
 
 });
+app.use('/secret/', secretRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
