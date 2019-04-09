@@ -12,7 +12,7 @@ secretRouter.get('/',(req,res,next)=>{
     {projection:{key:true,message:true, _id:false}},(err,document)=>{
       console.log(document);
       const encryptor = simpleEncryptor(document.key);
-      const result = encryptor.encrypt(document.message);
+      const result = encryptor.decrypt(document.message);
       res.send(result);
     });
 
