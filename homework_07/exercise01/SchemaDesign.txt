@@ -1,0 +1,28 @@
+Book Document:
+{ 
+   _id: ISBN, # Since ISBN is unique, it can be the ID for the document
+   title:'',  # the title of the book
+   brief:'',  # the brief introduction of the book
+   authors:[...], # we may have more than one author
+   availability:8,  # How long the student can hold the book
+   keywords:[....], # keywords taged
+   copy:['','','']  # We have many copies for the book, each copy has a Unique copy number. 
+   borrowedItemList:[ # If there is not any book being borrowed, the property does not exist. 
+    {
+	   borrower: Student,    # Here we put the student information (whole entity)
+	   copyNumber: '',       # To represent the copy Number
+	   dueDate:''      # the date the borrower should return the book  
+	}
+	,
+   ]
+}
+# We need student document, because before the student borrows a book, there is not any relationship betweenbook and student.
+Student Document:
+{
+   _id: ObjectId(),
+   firstName:'',
+   lastName:'',
+   phoneNumber:'',
+   email:'',
+   address:''
+}
