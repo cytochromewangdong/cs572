@@ -1,0 +1,44 @@
+http://localhost:3000/lectures
+
+###
+
+POST http://localhost:3000/lectures HTTP/1.1
+content-type: application/json
+
+{
+    "lecture": "lecture1",
+    "course": "course1"
+}
+###
+POST http://localhost:3000/lectures HTTP/1.1
+content-type: application/json
+
+{
+    "lecture": "lecture2",
+    "course": "course2"
+}
+###
+
+http://localhost:3000/lectures/5cabfe255ff8ea5485e5def0
+
+###
+
+PUT http://localhost:3000/lectures/5cac07d0783015559a54e650 HTTP/1.1
+content-type: application/json
+
+{
+    "lecture": "dong",
+    "course": "wang"
+}
+
+###
+DELETE http://localhost:3000/lectures/5cabff03150bc6549527ad80 HTTP/1.1
+
+###
+POST http://localhost:3000/search/^don$ HTTP/1.1
+
+###
+POST http://localhost:3000/search/.* HTTP/1.1
+
+###
+POST http://localhost:3000/search/g$ HTTP/1.1
