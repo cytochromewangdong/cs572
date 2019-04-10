@@ -85,7 +85,8 @@ poiRouter.get('/', function(req, res, next) {
   }
   const name = req.query.name;
   const poiCond = {location:{$near:[-91.9665342,41.017654]}, category:category}
-  const nameCond = name?{name:{$regex:`.*${name}.*`}}:{};
+  const nameCond = name?{name:{$regex:`\\b${name}\\b`, $options:'-i'}}:{};
+  //const nameCond = name?{$text:{$search:name}}:{};
   console.log(nameCond)
   Object.assign(poiCond, nameCond);
   db.collection("pois").find(poiCond).limit(3).toArray((err,result)=>{
