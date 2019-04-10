@@ -98,7 +98,6 @@ poiRouter.get('/', function(req, res, next) {
 });
 
 
-
 app.use('/poi/', poiRouter);
 
 // catch 404 and forward to error handler

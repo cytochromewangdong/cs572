@@ -3,9 +3,96 @@ POST http://localhost:3000/poi HTTP/1.1
 content-type: application/json
 
 {
-    "name": "Maharish",
-    "category": "Mexico",
-    "longitude": -91.9665342,
-    "latitude":41.017654
+    "name": "Torino Pizza & Steak House",
+    "category": "restaurant",
+    "longitude": -91.9653476,
+    "latitude": 41.0083332
 }
 ###
+POST http://localhost:3000/poi HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Arandas Mexican Restaurant",
+    "category": "restaurant",
+    "longitude": -91.9663382,
+    "latitude": 41.0083332
+}
+###
+
+POST http://localhost:3000/poi HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Asian Pho Bistro",
+    "category": "restaurant",
+    "longitude": -91.9665228,
+    "latitude": 41.0070316
+}
+###
+
+POST http://localhost:3000/poi HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Doc's Inn Cafe",
+    "category": "restaurant",
+    "longitude": -91.9659295,
+    "latitude": 41.0045992
+}
+###
+POST http://localhost:3000/poi HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Pizza Ranch",
+    "category": "restaurant",
+    "longitude": -91.9745702,
+    "latitude": 41.0041794
+}
+###
+
+POST http://localhost:3000/poi HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Washington Elementary School",
+    "category": "school",
+    "longitude": -91.9745702,
+    "latitude": 41.0041794
+}
+###
+POST http://localhost:3000/poi HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Roosevelt School",
+    "category": "school",
+    "longitude": -91.9875295,
+    "latitude": 41.004178
+}
+###
+POST http://localhost:3000/poi HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Pence Elementary School",
+    "category": "school",
+    "longitude": -91.9888294,
+    "latitude": 41.0057144
+}
+###
+POST http://localhost:3000/poi HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Fairfield Middle School",
+    "category": "school",
+    "longitude": -91.9799221,
+    "latitude": 41.0034566
+}
+###
+http://localhost:3000/poi?category=school&name=Washington
+
+###
+http://localhost:3000/poi?category=restaurant
