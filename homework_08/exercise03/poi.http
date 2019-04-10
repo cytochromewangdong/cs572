@@ -1,0 +1,11 @@
+
+POST http://localhost:3000/poi HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Maharish",
+    "category": "Mexico",
+    "longitude": -91.9665342,
+    "latitude":41.017654
+}
+###
