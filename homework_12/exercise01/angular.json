@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "excercise01": {
+    "exercise01": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/excercise01",
+            "outputPath": "dist/exercise01",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -58,18 +58,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "excercise01:build"
+            "browserTarget": "exercise01:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "excercise01:build:production"
+              "browserTarget": "exercise01:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "excercise01:build"
+            "browserTarget": "exercise01:build"
           }
         },
         "test": {
@@ -103,7 +103,7 @@
         }
       }
     },
-    "excercise01-e2e": {
+    "exercise01-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -112,11 +112,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "excercise01:serve"
+            "devServerTarget": "exercise01:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "excercise01:serve:production"
+              "devServerTarget": "exercise01:serve:production"
             }
           }
         },
@@ -132,5 +132,5 @@
       }
     }
   },
-  "defaultProject": "excercise01"
+  "defaultProject": "exercise01"
 }
