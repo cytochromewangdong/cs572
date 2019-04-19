@@ -1,0 +1,71 @@
+<form [formGroup]="signupForm" (ngSubmit)="signup()">
+   <hr>
+    <!-- <div class="jumbotron"> -->
+      <h1>Signup</h1>
+      <p>Please fill in this form to create an account</p>
+      <div  formGroupName="userData">
+          <div class="form-group input-group">
+            <input type="text" class="form-control" placeholder="first name" formControlName="firstName">
+            <span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <input type="text" class="form-control" placeholder="last name" formControlName="lastName">
+          </div>
+          <div>
+              <div *ngIf="signupForm.get('userData').get('firstName').invalid && (signupForm.submitted || signupForm.get('userData').get('firstName').touched)" class="alert alert-danger">
+                  <div *ngIf="signupForm.get('userData').get('firstName').errors.required"> firstName is required. </div>
+                </div>
+              <div *ngIf="signupForm.get('userData').get('lastName').invalid && (signupForm.submitted || signupForm.get('userData').get('lastName').touched)" class="alert alert-danger">
+                    <div *ngIf="signupForm.get('userData').get('lastName').errors.required"> lastName is required. </div>
+              </div>
+          </div>
+          <div class="form-group">
+              <input type="text" class="form-control" placeholder="Email" formControlName="email">
+          </div>
+          <div *ngIf="signupForm.get('userData').get('email').invalid && (signupForm.submitted || signupForm.get('userData').get('email').touched)" class="alert alert-danger">
+              <div *ngIf="signupForm.get('userData').get('email').errors.required"> Email is required. </div>
+              <div *ngIf="signupForm.get('userData').get('email').errors.pattern"> Email format is not correct</div>
+              <div *ngIf="signupForm.get('userData').get('email').errors.emailExists"> Email exists, please use other email</div>
+              
+         </div>
+      </div>
+      <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" formControlName="password">
+      </div>
+      <div *ngIf="signupForm.get('password').invalid && (signupForm.submitted || signupForm.get('password').touched)" class="alert alert-danger">
+          <div *ngIf="signupForm.get('password').errors.required"> Password is required. </div>
+     </div>
+      <div class="form-group">
+          <input type="password" class="form-control" placeholder="Confirm Password" formControlName="confirmPassword">
+      </div>
+      <div *ngIf="signupForm.invalid && (signupForm.submitted || signupForm.get('confirmPassword').touched)&&signupForm.errors['notSame']" class="alert alert-danger">
+          <div>Confirm password and Password dont match</div>
+     </div>
+      <div class="form-check form-group">
+            <input type="checkbox" class="form-check-input" formControlName="agree" id="agree">
+            <label class="form-check-label" for="agree">I accepted the Terms of Use & Privacy Policy.</label>
+      </div>
+      <div class="form-group">
+       <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid">Sign Up</button>
+      </div>
+    <!-- </div> -->
+    
+</form>
+<hr>
+<form [formGroup]="signInForm" (ngSubmit)="signIn()">
+    <h1>Please Login</h1>
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Email" formControlName="email">
+    </div>
+    <div class="form-group">
+        <input type="password" class="form-control" placeholder="Password" formControlName="password">
+    </div>
+    <div class="form-check form-group">
+        <input type="checkbox" class="form-check-input" formControlName="rememberMe" id="rememberMe">
+        <label class="form-check-label" for="rememberMe">Remember me.</label>
+  </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="!signInForm.valid">Login</button>
+    </div>
+</form>
+<div class="form-group">
+    <button class="btn btn-primary btn-block" (click)="getProtected()">get Protected</button>
+</div>
