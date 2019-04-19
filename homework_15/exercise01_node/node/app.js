@@ -56,11 +56,11 @@ app.use("/api/protected", function(req, res, next) {
   // var token = jwt.sign(payload, privateKEY, signOptions);
 });
 
-let users=[{email:"d@d.com"}];
+let users=[];
 /* GET users listing. */
 apiRouter.get('/checkDuplicate/:email', function(req, res, next) {
 //   res.send('respond with a resource');
-    let found = users.filter(user=>user.email===req.params.email);
+    let found = users.filter(user=>user.userData.email===req.params.email);
     if(found.length>0){
         res.json({result:false});
     } else {
@@ -70,23 +70,46 @@ apiRouter.get('/checkDuplicate/:email', function(req, res, next) {
 apiRouter.get("/protected", (req, res, next)=>{
   res.json({secret:"Nothing is secret!"});
 });
-apiRouter.post('/login',function(req, res, next) {
+apiRouter.post('/signup',function(req, res, next) {
+  let newSignUp = {...req.body};
 
-  bcrypt.hash(req.body.password, 2, function(err, hash) {
-    console.log("encrypted password:" + hash);
+  bcrypt.hash(newSignUp.password, 2, function(err, hash) {
+    // console.log("encrypted password:" + hash);
+    newSignUp.password = hash;
+    users.push(newSignUp);
+    res.json({result:true});
   });
+
+});
+apiRouter.post('/login',function(req, res, next) {
+  let found = users.filter(user=>user.userData.email===req.body.username);
+  if(found.length == 0){
+    console.log("-------------- dddddd");
+    res.json({result:false});
+    return;
+  }
+  let user = found[0];
+  bcrypt.compare(req.body.password,user.password,(err,same)=>{
+    console.log("--------------"+same);
+    if(same){
+        // console.log("encrypted password:" + hash);
+        let token = jwt.sign({username: "wangdong"},
+        PRIVATE_KEY,
+        { expiresIn: '12h' 
+        }
+      );
+      res.json({
+        result: true,
+        message: 'Authentication successful!',
+        openId: token
+      });
+    } else {
+      res.json({result:false});
+    }
+  })
 
   
-  let token = jwt.sign({username: "wangdong"},
-    PRIVATE_KEY,
-    { expiresIn: '12h' 
-    }
-  );
-  res.json({
-    result: true,
-    message: 'Authentication successful!',
-    openId: token
-  });
+
 });
 
 app.use('/api', apiRouter);

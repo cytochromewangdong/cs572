@@ -50,6 +50,9 @@ export class DataServiceService {
     });
     return login;
   }
+  signup(data){
+    return this.http.post(`${HOST_URL}signup/`,data);
+  }
   getToken(){
     return localStorage.getItem(JWT_KEY);
   }

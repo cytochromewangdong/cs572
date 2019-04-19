@@ -35,7 +35,11 @@ export class DataDrivenComponent implements OnInit {
   ngOnInit() {
   };
   signup(){
-
+    // alert(JSON.stringify(this.signupForm.value));
+    this.service.signup(this.signupForm.value).subscribe(data=>{
+      // alert(JSON.stringify(data));
+      this.signupForm.reset();
+    });
   }
   signIn(){
     this.service.login(this.signInForm.get("email").value, this.signInForm.get("password").value).subscribe(data=>alert(JSON.stringify(data)));
